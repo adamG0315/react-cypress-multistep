@@ -6,9 +6,10 @@ import FormStep3 from './FormStep3';
 import { Button, Col, Container, Row, Form } from 'react-bootstrap';
 import Results from './Results';
 import ProgressBar from './ProgressBar';
+import useMultiStep from '../../hooks/useMultiStep';
 
 const MultiStepForm: React.FC = () => {
-	const TOTAL_STEPS = 4;
+
 	const initialData = {
 		firstName: "",
 		lastName: "",
@@ -20,8 +21,13 @@ const MultiStepForm: React.FC = () => {
 		allergies: ""
 	};
 
-	const [currentStep, setCurrentStep] = useState<number>(1);
 	const [formData, setFormData] = useState<FormDataType>(initialData);
+	const {step, currentStepIndex, handleClickBack, handleClickNext, isFirst, isNotLast, totalSteps} = useMultiStep([
+		<FormStep1 formData={formData} updateFormData={updateFormData}/>,
+		<FormStep2 formData={formData} updateFormData={updateFormData}/>,
+		<FormStep3 formData={formData} updateFormData={updateFormData}/>,
+		<Results formData={formData}/>
+	])
 
 	useEffect(() => {
 		const storedData = localStorage.getItem('formData');
@@ -30,17 +36,6 @@ const MultiStepForm: React.FC = () => {
 		}
 	}, []);
 
-	function handleClickBack() {
-		if (currentStep > 1) {
-			setCurrentStep(currentStep - 1);
-		}
-	}
-
-	function handleClickNext() {
-		if (currentStep < TOTAL_STEPS) {
-			setCurrentStep(currentStep + 1);
-		}
-	}
 
 	function updateFormData(fields: Partial<FormDataType>) {
 		setFormData(prev => ({ ...prev, ...fields }));
@@ -52,46 +47,28 @@ const MultiStepForm: React.FC = () => {
 		localStorage.setItem('formData', JSON.stringify(formData));
 	}
 
-	function renderFormSteps() {
-		switch (currentStep) {
-			case 1:
-				return <FormStep1 formData={formData} updateFormData={updateFormData}/>;
-			case 2:
-				return <FormStep2 formData={formData} updateFormData={updateFormData}/>;
-			case 3:
-				return <FormStep3 formData={formData} updateFormData={updateFormData}/>;
-			case 4:
-				return <Results formData={formData}/>;
-			default:
-				return <FormStep1 formData={formData} updateFormData={updateFormData}/>;
-		}
-	}
-
 	function renderTitle() {
-		if(currentStep === TOTAL_STEPS) {
+		if(currentStepIndex === totalSteps - 1) {
 			return "Result"
 		} else {
-			return `Step ${currentStep}`
+			return `Step ${currentStepIndex + 1}`
 		}
 	}
-
-	const isFirst = currentStep !== 1
-	const isNotLast = currentStep < TOTAL_STEPS
 
 	return (
         <Container>
             <Row className="justify-content-center mt-5">
                 <Col lg={6} xs={12} className="multistep-form-bg p-5 rounded d-flex flex-column form-height">
                     <h2 data-testid="title" className='text-center mb-4'>{renderTitle()}</h2>
-                    <ProgressBar currentStep={currentStep} totalSteps={TOTAL_STEPS}/>
+                    <ProgressBar currentStepIndex={currentStepIndex} totalSteps={totalSteps}/>
                     
                     <Form onSubmit={handleFormSubmit} className="d-flex flex-column flex-grow-1">
                         <div className="flex-grow-1">
-                            {renderFormSteps()}
+                            {step}
                         </div>
                         
                         <div className="mt-3 d-flex justify-content-between">
-                            {isFirst
+                            {!isFirst
                                 ? <Button 
 									onClick={handleClickBack}
 									data-testid="back"

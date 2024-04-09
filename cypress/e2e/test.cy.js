@@ -1,12 +1,12 @@
 describe('Frontend Test Spec', () => {
 
-  it('It is possible to complete all steps with valid data', () => {
+  it('Complete all steps with valid data', () => {
     cy.visit('/')
 
     // Complete step 1
-    const firstName = "Bob"
-    const lastName = "Bobson"
-    const age = 30
+    const firstName = "Jane"
+    const lastName = "Doe"
+    const age = 33
     cy.get('[data-testid=firstName]').type(firstName)
     cy.get('[data-testid=lastName]').type(lastName)
     cy.get('[data-testid=age]').type(age)
@@ -14,7 +14,7 @@ describe('Frontend Test Spec', () => {
 
     // Complete step 2
     const phone = "+1 2345678"
-    const email = "bob@bobson.com"
+    const email = "jane@doe.com"
     cy.get('[data-testid=phone]').type(phone)
     cy.get('[data-testid=email]').type(email)
     cy.get('[data-testid=submit]').click()
