@@ -1,28 +1,56 @@
-name: Run Tests
+# name: Run Tests
+
+# on: [push]
+
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Checkout Repository
+#       uses: actions/checkout@v2
+      
+#     - name: Setup Node.js
+#       uses: actions/setup-node@v1
+#       with:
+#         node-version: '14' # Specify your Node.js version
+
+#     - name: Install Dependencies
+#       run: npm install
+      
+#     - name: Run Jest Tests
+#       run: npm test # Assuming this script is configured to run Jest in your package.json
+      
+#     - name: Run Cypress Tests
+#       uses: cypress-io/github-action@v2
+#       with:
+#         start: npm start
+#         wait-on: 'http://localhost:3000'
+#         wait-on-timeout: 300 # optional: timeout in seconds for start command to complete
+
+name: CI
 
 on: [push]
 
 jobs:
-  test:
+  build-and-test:
     runs-on: ubuntu-latest
+    
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-      
+    - uses: actions/checkout@v2
+    
     - name: Setup Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: '14' # Specify your Node.js version
+        node-version: '14' # Specify the version of Node.js your project uses
 
     - name: Install Dependencies
       run: npm install
       
     - name: Run Jest Tests
-      run: npm test # Assuming this script is configured to run Jest in your package.json
+      run: npm test
       
     - name: Run Cypress Tests
-      uses: cypress-io/github-action@v2
-      with:
-        start: npm start
-        wait-on: 'http://localhost:3000'
-        wait-on-timeout: 300 # optional: timeout in seconds for start command to complete
+      run: npm run ci:e2e
+      env:
+        CI: true
+
