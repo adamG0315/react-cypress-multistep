@@ -2,50 +2,51 @@
     "name": "multi-step-form",
     "version": "1.0.0",
     "scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject",
-		"e2e": "cypress run",
-		"ci:e2e": "start-server-and-test start http://localhost:3000 e2e"
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test --detectOpenHandles",
+        "eject": "react-scripts eject",
+        "e2e": "cypress run",
+        "ci:e2e": "start-server-and-test start http://localhost:3000 e2e"
     },
-	"dependencies": {
-		"@testing-library/jest-dom": "^5.17.0",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^13.5.0",
-		"@types/jest": "^27.5.2",
-		"@types/node": "^16.18.95",
-		"@types/react": "^18.2.74",
-		"@types/react-dom": "^18.2.24",
-		"bootstrap": "^5.3.3",
-		"react": "^18.2.0",
-		"react-bootstrap": "^2.10.2",
-		"react-dom": "^18.2.0",
-		"react-scripts": "5.0.1",
-		"typescript": "^4.9.5",
-		"web-vitals": "^2.1.4"
-	  },
+    "dependencies": {
+        "@testing-library/jest-dom": "^5.17.0",
+        "@testing-library/react": "^13.4.0",
+        "@testing-library/user-event": "^13.5.0",
+        "@types/jest": "^27.5.2",
+        "@types/node": "^16.18.95",
+        "@types/react": "^18.2.74",
+        "@types/react-dom": "^18.2.24",
+        "bootstrap": "^5.3.3",
+        "react": "^18.2.0",
+        "react-bootstrap": "^2.10.2",
+        "react-dom": "^18.2.0",
+        "react-scripts": "5.0.1",
+        "typescript": "^4.9.5",
+        "web-vitals": "^2.1.4"
+    },
     "devDependencies": {
-		"cypress": "^12.17.1",
-		"serve": "^14.2.1",
-		"start-server-and-test": "^2.0.3"
+        "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+        "cypress": "^12.17.1",
+        "serve": "^14.2.1",
+        "start-server-and-test": "^2.0.3"
     },
-	"browserslist": {
-		"production": [
-		  ">0.2%",
-		  "not dead",
-		  "not op_mini all"
-		],
-		"development": [
-		  "last 1 chrome version",
-		  "last 1 firefox version",
-		  "last 1 safari version"
-		]
-	  },
-	"eslintConfig": {
-		"extends": [
-		  "react-app",
-		  "react-app/jest"
-		]
-	  }
-  }
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    }
+}
